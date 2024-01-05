@@ -2,14 +2,16 @@ import { DateTime } from 'luxon'
 import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Post from './Post'
 
-export default class Categorie extends BaseModel {
+export default class Category extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
   public name: string
 
-  @hasMany(() => Post)
+  @hasMany(() => Post, {
+    foreignKey: 'categoryId'
+  })
   public posts: HasMany<typeof Post>
 
   @column.dateTime({ autoCreate: true })

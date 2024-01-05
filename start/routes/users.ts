@@ -6,4 +6,6 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.post('/users', 'UserController.create')
+Route.group(() => {
+    Route.post('/users', 'UserController.create')
+}).middleware('auth')

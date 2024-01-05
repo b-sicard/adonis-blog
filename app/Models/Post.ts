@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, HasOne, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
-import Categorie from './Categorie'
+import Category from './Category'
 
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
@@ -13,10 +13,20 @@ export default class Post extends BaseModel {
   @column()
   public content: string
 
-  @hasOne(() => Categorie)
-  public categorie: HasOne<typeof Categorie>
+  @column()
+  public categoryId: number
 
-  @hasOne(() => User)
+  @hasOne(() => Category, {
+    localKey: 'categoryId'
+  })
+  public category: HasOne<typeof Category>
+
+  @column()
+  public authorId: number
+
+  @hasOne(() => User, {
+    localKey: 'authorId'
+  })
   public author: HasOne<typeof User>
 
   @column.dateTime({ autoCreate: true })
