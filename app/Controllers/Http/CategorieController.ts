@@ -1,6 +1,6 @@
 // import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class PostController {
+export default class CategorieController {
 
     public async list() {
 
