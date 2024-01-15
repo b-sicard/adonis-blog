@@ -16,8 +16,7 @@ export default class AuthController {
             })
         } catch {
             return response.unauthorized({
-                title: 'Invalid credentials',
-                description: 'Invalid e-mail or password.'
+                error: 'Invalid credentials'
             })
         }
     }
