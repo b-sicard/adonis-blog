@@ -11,7 +11,11 @@ export default class AuthController {
             return response.send(token)
         } catch {
             return response.unauthorized({
-                error: 'Invalid credentials'
+                errors: [
+                    {
+                        'message': 'Invalid credentials'
+                    }
+                ],
             })
         }
     }
@@ -22,6 +26,8 @@ export default class AuthController {
     }
 
     public async me({auth, response} : HttpContextContract) {
-        return response.ok(auth.user)
+        return response.ok({
+            user: auth.user
+        })
     }
 }
