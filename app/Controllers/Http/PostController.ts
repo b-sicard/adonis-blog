@@ -4,9 +4,18 @@ import Post from "App/Models/Post";
 
 export default class PostController {
 
-    public async list() {
-        const posts = await Post.all()
-        return posts
+    public async list({ response, request }: HttpContextContract) {
+        const { title, author, limit } = request.all()
+
+        const query = Post.query().orderBy('created_at', 'desc')
+    
+        if (title) query.where('title', 'like', `%${title}%`)
+        if (author) query.where('author', 'like', `%${author}%`)
+        if (limit) query.limit(limit)
+    
+        const posts = await query
+
+        return response.ok(posts)
     }
 
     public async get({ params }: HttpContextContract) {
