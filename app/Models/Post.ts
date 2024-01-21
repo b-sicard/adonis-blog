@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, HasOne, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, HasOne, belongsTo, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import Category from './Category'
 
@@ -24,10 +24,10 @@ export default class Post extends BaseModel {
   @column()
   public authorId: number
 
-  @hasOne(() => User, {
-    localKey: 'authorId'
+  @belongsTo(() => User, {
+    foreignKey: 'authorId', // This should match the column name above
   })
-  public author: HasOne<typeof User>
+  public author: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

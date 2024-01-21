@@ -13,7 +13,7 @@ export default class PostController {
         if (author) query.where('author', 'like', `%${author}%`)
         if (limit) query.limit(limit)
     
-        const posts = await query
+        const posts = await query.preload('author')
 
         return response.ok(posts)
     }
@@ -23,8 +23,9 @@ export default class PostController {
         return post
     }
 
-    public async create({ request }: HttpContextContract) {
+    public async create({ request, auth }: HttpContextContract) {
         const post = new Post()
+        post.authorId = auth.user!.id
         post.merge(request.all()).save()
         return post
     }
