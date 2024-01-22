@@ -30,15 +30,18 @@ export default class PostController {
         return post
     }
 
-    public async update({ request }: HttpContextContract) {
-        const post = new Post()
-        post.merge(request.all()).save()
-        return post
+    public async update({ params, request, response }: HttpContextContract) {
+        const post = await Post.findOrFail(params.id)
+    
+        post.merge(request.only(['title', 'content']))
+        await post.save()
+    
+        return response.ok(post)
     }
 
-    public async delete({ params }: HttpContextContract) {
+    public async delete({ params, response }: HttpContextContract) {
         const post = await Post.findOrFail(params.id)
         post.delete()
-        return
+        return response.ok({ message: 'Post deleted successfully' })
     }
 }

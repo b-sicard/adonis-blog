@@ -12,5 +12,5 @@ Route.get('/posts/:id', 'PostController.get')
 Route.group(() => {
     Route.post('/posts', 'PostController.create')
     Route.put('/posts/:id', 'PostController.update')
-    Route.delete('/posts', 'PostController.delete')
+    Route.delete('/posts/:id', 'PostController.delete')
 }).middleware('auth')
