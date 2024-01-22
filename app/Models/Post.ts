@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, HasOne, belongsTo, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import Category from './Category'
 
@@ -13,15 +13,15 @@ export default class Post extends BaseModel {
   @column()
   public content: string
 
-  @column()
+  @column({ serializeAs: null })
   public categoryId: number
 
-  @hasOne(() => Category, {
+  @belongsTo(() => Category, {
     localKey: 'categoryId'
   })
-  public category: HasOne<typeof Category>
+  public category: BelongsTo<typeof Category>
 
-  @column()
+  @column({ serializeAs: null })
   public authorId: number
 
   @belongsTo(() => User, {
