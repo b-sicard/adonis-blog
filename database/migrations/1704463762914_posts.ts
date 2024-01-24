@@ -14,12 +14,6 @@ export default class extends BaseSchema {
         .references('users.id')
         .onDelete('CASCADE') // delete profile when user is deleted
         .notNullable()
-      table
-        .integer('category_id')
-        .unsigned()
-        .references('categories.id')
-        .onDelete('SET NULL')
-        .nullable() 
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
