@@ -8,9 +8,21 @@ export default class UserController {
         return user
     }
 
-    public async create({ request }: HttpContextContract) {
-        const user = new User()
-        user.merge(request.all()).save()
-        return user
+    public async create({ request, response }: HttpContextContract) {
+
+        const hasUser = await User.findBy('email', request.input('email'))
+
+        if (hasUser) {
+            return response.unauthorized({
+                errors: [
+                    {
+                        'message': 'User already exists'
+                    }
+                ],
+            })
+        }
+
+        const user = await User.create(request.all())
+        return response.ok(user)
     }
 }

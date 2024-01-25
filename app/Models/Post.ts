@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
-import Category from './Category'
 
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
@@ -15,11 +14,6 @@ export default class Post extends BaseModel {
 
   @column({ serializeAs: null })
   public categoryId: number
-
-  @belongsTo(() => Category, {
-    localKey: 'categoryId'
-  })
-  public category: BelongsTo<typeof Category>
 
   @column({ serializeAs: null })
   public authorId: number
